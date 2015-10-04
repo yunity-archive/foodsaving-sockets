@@ -8,7 +8,7 @@ module.exports = function(io) {
     var users = {};
     io.sockets.sockets.forEach(function(socket){
       var data = socket.data;
-      var userId = data.userId || '__anonymous__';
+      var userId = data.userId || '__nouser__';
       var sessionId = data.sessionId || '__nosession__';
       if (!users[userId]) users[userId] = {};
       if (!users[userId][sessionId]) users[userId][sessionId] = [];

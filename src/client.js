@@ -12,7 +12,7 @@ var logger = new winston.Logger({
     ]
 });
 
-var sessionId = 'sessionfoo';
+var sessionId = process.argv[2] || 'mysessionid';
 
 socket.on('connect', function(){
   logger.info('socket connected to', url);
@@ -20,5 +20,5 @@ socket.on('connect', function(){
 });
 
 socket.on('message', function(data){
-  logger.info('recv', data);
+  logger.info('received', data);
 });
