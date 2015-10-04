@@ -54,35 +54,50 @@ io.on('connection', function(socket) {
 
     socket.data = {};
 
-    logger.info('client', socket.id, 'connected', socket.handshake);
+    logger.info('connection', socket.id, 'connected', socket.handshake);
 
     // when they emit an authenticate message, check they are ok
 
     socket.on('authenticate', function(data) {
 
-        logger.info('client', socket.id, 'authenticating', data);
+        logger.info('connection', socket.id, 'authenticating', data);
 
         socket.data.sessionId = data.sessionId;
 
         getUserIdFor(data.sessionId, function(err, userId) {
             if (err) {
-                logger.info('client', socket.id, 'session', data.sessionId, 'has no logged-in user');
+                logger.info('connection', socket.id, 'session', data.sessionId, 'has no logged-in user');
                 return;
             }
-            socket.data.userId = userId;
-            var room = roomFor(userId);
-            logger.info('client', socket.id, 'authenticated! joining [' + room + ']');
-            socket.join(room);
+            updateSocketUser(socket, userId);
         });
 
     });
 
     socket.on('disconnect', function() {
-        logger.info('client', socket.id, 'disconnected');
+        logger.info('connection', socket.id, 'disconnected');
         logger.info('connection count', io.sockets.sockets.length);
     });
 
 });
+
+function updateSocketUser(socket, userId) {
+    
+    if (userId && socket.data.userId !== userId) {
+        var joinRoom = roomFor(userId);
+        logger.info('connection', socket.id, 'joining [' + joinRoom + ']');
+        socket.join(joinRoom);
+    }
+
+    if (socket.data.userId !== undefined && 
+        socket.data.userId !== userId) {
+        var leaveRoom = roomFor(socket.data.userId);
+        logger.info('connection', socket.id, 'leaving [' + leaveRoom + ']');
+        socket.leave(leaveRoom);
+    }
+
+    socket.data.userId = userId;
+}
 
 /*
 
@@ -158,11 +173,8 @@ redisSubscriber.on('pmessage', function(pattern, channel, action){
             var room = roomFor(userId);
 
             io.sockets.sockets.forEach(function(socket){
-                if (socket.data.sessionId === sessionId && socket.data.userId !== userId) {
-                    logger.info('client', socket.id, 'logged in as ', userId);
-                    socket.data.userId = userId;
-                    logger.info('client', socket.id, 'authenticated! joining [' + room + ']');
-                    socket.join(room);
+                if (socket.data.sessionId === sessionId) {
+                    updateSocketUser(socket, userId);
                 }
             });
 
@@ -176,8 +188,9 @@ redisSubscriber.on('pmessage', function(pattern, channel, action){
 
         io.sockets.sockets.forEach(function(socket){
             if (socket.data.sessionId === sessionId) {
-                logger.info('client', socket.id, 'session', sessionId, 'ended, disconnecting from user', socket.data.userId);
-                delete socket.data.userId;
+                //logger.info('connection', socket.id, 'session', sessionId, 'ended, disconnecting from user', socket.data.userId);
+                updateSocketUser(socket, undefined);
+
             }
         });
 
