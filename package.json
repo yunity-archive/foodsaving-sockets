@@ -2,9 +2,13 @@
   "name": "yunity-sockets",
   "version": "0.0.1",
   "description": "",
-  "main": "src/server.js",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "tape test/*.js | faucet"
+  },
+  "bin": {
+    "yunity-sockets": "index.js"
   },
   "dependencies": {
     "express": "^4.13.3",
