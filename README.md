@@ -105,8 +105,6 @@ The admin http reports all connections/sessions/users:
 
 ```
 $ curl localhost:5001 | jq .
-
-```
 {
   "users": {
     "__anonymous__": {
