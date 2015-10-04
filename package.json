@@ -1,0 +1,21 @@
+{
+  "name": "yunity-sockets",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "tape test/*.js | faucet"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "redis": "^2.1.0",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7",
+    "winston": "^1.0.2",
+    "yargs": "^3.26.0"
+  },
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "tape": "^4.2.1"
+  }
+}
