@@ -132,7 +132,7 @@ redisSubscriber.on('message', function(channel, str) {
                 logger.info('discarding message as it does not specify data', message);
                 return;
             } else {
-                var data = JSON.stringify(message.data);
+                var data = message.data;
                 logger.info('publishing [' + data + ']', 'to users', message.users.join(','));
                 message.users.forEach(function(userId){
                     console.log('publishing to', roomFor(userId));
