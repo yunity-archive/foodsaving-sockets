@@ -180,7 +180,7 @@ redisSubscriber.on('pmessage', function(pattern, channel, action){
 
         });
 
-    } else if (action === 'del') {
+    } else if (action === 'del' or action === 'expired') {
 
         logger.info('session', sessionId, 'ended');
 
