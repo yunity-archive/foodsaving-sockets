@@ -12,7 +12,10 @@ var WEBSOCKET_PORT = argv.w;
 var HTTP_ADMIN_PORT = argv.p;
 var SOCKETIO_CHANNEL = 'message';
 
-var io = require('socket.io')();
+var io = require('socket.io')({
+    path: '/socket',
+    serveClient: false
+});
 
 var adminServer = require('./admin-server')(io);
 
