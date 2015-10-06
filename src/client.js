@@ -1,5 +1,8 @@
-var url = 'http://localhost:5000';
-var socket = require('socket.io-client')(url);
+var url = 'http://localhost:8091';
+var socket = require('socket.io-client')(url, {
+    path: '/socket'
+    //transports: ['websocket']
+});
 
 var winston = require('winston');
 var logger = new winston.Logger({
