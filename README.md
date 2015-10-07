@@ -104,36 +104,67 @@ node src/client.js sessionname
 The admin http reports all connections/sessions/users:
 
 ```
-$ curl localhost:5001 | jq .
+$ curl -s localhost:9080 | jq .
 {
-  "users": {
-    "__anonymous__": {
-      "foo": [
-        {
-          "clientId": "pIMs0BDxTteUnaZPAAAG",
-          "handshake": {
-            "headers": {
-              "user-agent": "node-XMLHttpRequest",
-              "accept": "*/*",
-              "host": "localhost:5000",
-              "connection": "close"
-            },
-            "time": "Sun Oct 04 2015 14:50:22 GMT+0200 (CEST)",
-            "address": "::ffff:127.0.0.1",
-            "xdomain": false,
-            "secure": false,
-            "issued": 1443963022658,
-            "url": "/socket.io/?EIO=3&transport=polling&t=1443963022623-0&b64=1",
-            "query": {
-              "EIO": "3",
-              "transport": "polling",
-              "t": "1443963022623-0",
-              "b64": "1"
-            }
-          }
+  "connections": [
+    {
+      "connectionId": "kZjaoWHd7dAjTi9FAAAB",
+      "sessionId": "mypretendsessionid",
+      "userId": "user5",
+      "handshake": {
+        "headers": {
+          "upgrade": "websocket",
+          "cache-control": "no-cache",
+          "pragma": "no-cache",
+          "connection": "keep-alive, Upgrade",
+          "cookie": "csrftoken=fPGmNi16HXZSCj7Ij8zwncBnAfZ7FOHU",
+          "sec-websocket-key": "MOWVgem1iTClHQutzgwKjg==",
+          "sec-websocket-extensions": "permessage-deflate",
+          "origin": "http://localhost:8091",
+          "sec-websocket-version": "13",
+          "accept-encoding": "gzip, deflate",
+          "accept-language": "en-US,en;q=0.5",
+          "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0",
+          "host": "localhost:8091"
+        },
+        "time": "Wed Oct 07 2015 11:11:43 GMT+0200 (CEST)",
+        "address": "::ffff:127.0.0.1",
+        "xdomain": true,
+        "secure": false,
+        "issued": 1444209103013,
+        "url": "/socket/?EIO=3&transport=websocket",
+        "query": {
+          "EIO": "3",
+          "transport": "websocket"
         }
-      ]
+      }
+    },
+    {
+      "connectionId": "B58Gpt6_n_2sOJ2ZAAAC",
+      "sessionId": "mysessionid",
+      "userId": "user5",
+      "handshake": {
+        "headers": {
+          "connection": "close",
+          "host": "localhost:8091",
+          "accept": "*/*",
+          "user-agent": "node-XMLHttpRequest"
+        },
+        "time": "Wed Oct 07 2015 11:11:54 GMT+0200 (CEST)",
+        "address": "::ffff:127.0.0.1",
+        "xdomain": false,
+        "secure": false,
+        "issued": 1444209114790,
+        "url": "/socket/?EIO=3&transport=polling&t=1444209114743-0&b64=1",
+        "query": {
+          "EIO": "3",
+          "transport": "polling",
+          "t": "1444209114743-0",
+          "b64": "1"
+        }
+      }
     }
-  }
+  ]
 }
 ```
