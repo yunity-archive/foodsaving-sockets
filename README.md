@@ -97,7 +97,7 @@ Chat messages look like this:
   "type": "chat_message"
   "payload": {
     "chat_id": 3434,
-    "msesage": {
+    "message": {
       "sender": 82,
       "created_at": "2007-12-24T18:21:00.003",
       "type": "TEXT",
