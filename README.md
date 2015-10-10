@@ -88,17 +88,15 @@ Chat messages look like this:
 ```
 {
   "users": [23, 5, 12],
-  "data": {
-    "type": "chat_message"
-    "data": {
-      "chat_id": 3434,
-      "msesage": {
-        "sender": 82,
-        "created_at": "2007-12-24T18:21:00.003",
-        "type": "TEXT",
-        "id": 124624,
-        "content": "Hi John, how are you?"
-      }
+  "type": "chat_message"
+  "payload": {
+    "chat_id": 3434,
+    "msesage": {
+      "sender": 82,
+      "created_at": "2007-12-24T18:21:00.003",
+      "type": "TEXT",
+      "id": 124624,
+      "content": "Hi John, how are you?"
     }
   }
 }
