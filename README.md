@@ -61,6 +61,12 @@ $ redis-cli --raw keys 'session-store-*' | xargs -n1 -I{} sh -c 'echo -n {}:; re
 session-store-eerwauvu9314k0swy11wm7pnrgoy442y:79
 ```
 
+### clear all sessions (... and anything else stored in redis)
+
+```
+redis-cli flushall
+```
+
 ## redis notifications
 
 To send messages to users `PUBLISH` serialized json to key `notifications` with a message like this:
