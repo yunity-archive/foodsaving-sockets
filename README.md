@@ -52,6 +52,15 @@ To associate a session with a user id, write to redis with key `session-store-` 
 redis-cli set session-store-mysessionid myuserid
 ```
 
+### list session/users
+
+You can list session/user pairs with:
+
+```
+$ redis-cli --raw keys 'session-store-*' | xargs -n1 -I{} sh -c 'echo -n {}:; redis-cli --raw get {}'
+session-store-eerwauvu9314k0swy11wm7pnrgoy442y:79
+```
+
 ## redis notifications
 
 To send messages to users `PUBLISH` serialized json to key `notifications` with a message like this:
