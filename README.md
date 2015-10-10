@@ -72,6 +72,22 @@ E.g.:
 redis-cli publish notifications '{"users":["user5"],"data":{"a":"b"}}'
 ```
 
+### Chat messages
+
+Chat messages look like this:
+
+```
+{
+  "users": [23, 5, 12],
+  "data": {
+    "type": "chat_message"
+    "body": {
+      ... message json ...
+    }
+  }
+}
+```
+
 This will be sent to any connections associated with these users.
 
 ## socket.io clients
