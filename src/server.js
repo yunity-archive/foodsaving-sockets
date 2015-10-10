@@ -112,7 +112,8 @@ function updateSocketUser(socket, userId) {
 
         {
             "users": [43, 35, 35],
-            "data": {
+            "type": "some_message_type",
+            "payload": {
                 "stuff" : "for",
                 "the"   : "users"
             }
@@ -131,15 +132,16 @@ redisSubscriber.on('message', function(channel, str) {
             if (message.users === undefined || message.users.constructor !== Array) {
                 logger.info('discarding message as it does not specify a user array', message);
                 return;
-            } else if (message.data === undefined) {
-                logger.info('discarding message as it does not specify data', message);
+            } else if (message.payload === undefined) {
+                logger.info('discarding message as it does not have a payload', message);
                 return;
             } else {
-                var data = message.data;
-                logger.info('publishing [' + data + ']', 'to users', message.users.join(','));
-                message.users.forEach(function(userId){
+                var users = message.users;
+                delete message.users; // the remaining fields go to each user
+                logger.info('publishing [' + message + ']', 'to users', users.join(','));
+                users.forEach(function(userId){
                     console.log('publishing to', roomFor(userId));
-                    io.to(roomFor(userId)).emit(SOCKETIO_CHANNEL, data);
+                    io.to(roomFor(userId)).emit(SOCKETIO_CHANNEL, message);
                 });
             }
         } catch (e) {
