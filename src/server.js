@@ -138,7 +138,7 @@ redisSubscriber.on('message', function(channel, str) {
             } else {
                 var users = message.users;
                 delete message.users; // the remaining fields go to each user
-                logger.info('publishing [' + message + ']', 'to users', users.join(','));
+                logger.info('publishing [', message, ']', 'to users', users.join(','));
                 users.forEach(function(userId){
                     console.log('publishing to', roomFor(userId));
                     io.to(roomFor(userId)).emit(SOCKETIO_CHANNEL, message);
