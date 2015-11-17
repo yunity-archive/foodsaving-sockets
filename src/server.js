@@ -195,7 +195,7 @@ redisSubscriber.on('pmessage', function(pattern, channel, action){
             if (socket.data.sessionId === sessionId) {
                 //logger.info('connection', socket.id, 'session', sessionId, 'ended, disconnecting from user', socket.data.userId);
                 updateSocketUser(socket, undefined);
-
+                socket.data.sessionId = undefined;
             }
         });
 
