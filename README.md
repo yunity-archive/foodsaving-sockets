@@ -99,7 +99,6 @@ Chat messages look like this:
     "message": {
       "sender": 82,
       "created_at": "2007-12-24T18:21:00.003",
-      "type": "TEXT",
       "id": 124624,
       "content": "Hi John, how are you?"
     }
