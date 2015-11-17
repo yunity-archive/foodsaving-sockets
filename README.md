@@ -23,7 +23,7 @@ When a client connects, this is a connection (or client). There are many of thes
 
 A connection may be associated with a session, multiple connections may share a session (e.g. multiple tabs in a browser). A connection may have no session.
 
-A user may be a associated with a session, one user may have multiple sessions (e.g. on their phone, and on their laptop). A session might not have a user id.
+A user may be associated with a session, one user may have multiple sessions (e.g. on their phone, and on their laptop). A session might not have a user id.
 
 ## how to run it
 
