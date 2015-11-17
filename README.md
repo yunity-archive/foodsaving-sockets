@@ -21,10 +21,9 @@ The three concepts are all independent but related.
 
 When a client connects, this is a connection (or client). There are many of these.
 
-A connection may be associated with a session, multiple connections may share a session (e.g. multiple tabs in a browser). A connection may have no session, in which case the session id is reported as `__nosession__` in the admin http.
+A connection may be associated with a session, multiple connections may share a session (e.g. multiple tabs in a browser). A connection may have no session.
 
-A user may be a associated with a session, one user may have multiple sessions (e.g. on their phone, and on their laptop). A session might not have a user id, in which case it will be set to `__nouser__` in the admin http;
-
+A user may be a associated with a session, one user may have multiple sessions (e.g. on their phone, and on their laptop). A session might not have a user id.
 
 ## how to run it
 
