@@ -73,7 +73,8 @@ To send messages to users `PUBLISH` serialized json to key `notifications` with 
 ```json
 {
   "users": [23, 5, 12],
-  "data": {
+  "type": "foo",
+  "payload": {
     "any": "valid",
     "json": "in here"
   }
@@ -83,7 +84,19 @@ To send messages to users `PUBLISH` serialized json to key `notifications` with 
 E.g.:
 
 ```
-redis-cli publish notifications '{"users":["user5"],"data":{"a":"b"}}'
+redis-cli publish notifications '{"users":["user5"],"type":"foo","payload":{"a":"b"}}'
+```
+
+Each client will receive the message, minus the `users` key/value, i.e.:
+
+```json
+{
+  "type": "foo",
+  "payload": {
+    "any": "valid",
+    "json": "in here"
+  }
+}
 ```
 
 ### Chat messages
