@@ -17,6 +17,17 @@ var io = require('socket.io')({
     serveClient: false
 });
 
+io.listSockets = function(){
+    var s = io.sockets.sockets;
+    if (isarray(s)) {
+        return s;
+    } else {
+        return Object.keys(io.sockets.sockets).map(function(k){
+            return io.sockets.sockets[k];
+        });
+    }
+};
+
 var adminServer = require('./admin-server')(io);
 
 var redis = require('redis').createClient();
@@ -79,7 +90,7 @@ io.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
         logger.info('connection', socket.id, 'disconnected');
-        logger.info('connection count', io.sockets.sockets.length);
+        logger.info('connection count', io.listSockets().length);
     });
 
 });
@@ -177,7 +188,7 @@ redisSubscriber.on('pmessage', function(pattern, channel, action){
 
             var room = roomFor(userId);
 
-            io.sockets.sockets.forEach(function(socket){
+            io.listSockets().forEach(function(socket){
                 if (socket.data.sessionId === sessionId) {
                     updateSocketUser(socket, userId);
                 }
@@ -191,7 +202,7 @@ redisSubscriber.on('pmessage', function(pattern, channel, action){
 
         // find any sockets with this session
 
-        io.sockets.sockets.forEach(function(socket){
+        io.listSockets().forEach(function(socket){
             if (socket.data.sessionId === sessionId) {
                 //logger.info('connection', socket.id, 'session', sessionId, 'ended, disconnecting from user', socket.data.userId);
                 updateSocketUser(socket, undefined);
@@ -222,4 +233,9 @@ function getUserIdFor(sessionId, callback) {
 
 function roomFor(userId) {
     return 'room:' + userId;
+}
+
+// based on https://github.com/juliangruber/isarray/blob/master/index.js
+function isarray(arr) {
+  return {}.toString.call(arr) == '[object Array]';
 }
