@@ -1,4 +1,4 @@
-# yunity-sockets
+# foodsaving-sockets
 
 Handles socket.io connections from clients (web, mobile, app, etc...).
 
@@ -13,7 +13,7 @@ It works like this:
 
 It's intended to be used for one way communications only:
 
-django app --> redis --> yunity-sockets --> client
+django app --> redis --> foodsaving-sockets --> client
 
 ## sessions vs users vs connections
 
@@ -28,8 +28,8 @@ A user may be associated with a session, one user may have multiple sessions (e.
 ## how to run it
 
 ```
-git clone git@github.com:yunity/yunity-sockets.git
-cd yunity-sockets
+git clone git@github.com:yunity/foodsaving-sockets.git
+cd foodsaving-sockets
 npm install
 node index.js -w 5000 -p 5001
 ```
